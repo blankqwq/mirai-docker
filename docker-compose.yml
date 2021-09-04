@@ -19,6 +19,9 @@ services:
       - ./mcl/config/:/data/mirai/config/:rw
       - ./mcl/bots/:/data/mirai/bots/:rw
       - ./mcl/data/:/data/mirai/data/:rw
+      - ./mcl/images/:/data/mirai/images/
+    extra_hosts:
+      - "robot.blankqwq.com:172.1.0.1"
     networks:
       bnet:
         ipv4_address: 172.1.0.110

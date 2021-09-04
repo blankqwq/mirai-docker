@@ -3,6 +3,7 @@ LABEL maintainer="blankqwq <github.com/blankqwq>"
 ENV TZ=Asia/Shanghai
 
 ADD ./config.json /data/mirai/config.json
+
 ARG CHANGE_SOURCE=true
 RUN if [ ${CHANGE_SOURCE} = true ]; then \
     # Change application source from deb.debian.org to aliyun source
@@ -14,6 +15,7 @@ RUN if [ ${CHANGE_SOURCE} = true ]; then \
 RUN apt-get update
 RUN apt-get -y install git unzip
 RUN apt-get install -y libmcrypt-dev libzip-dev zip unzip
+RUN apt-get install -y vim
 
 ARG MCL_VERSION=1.2.2
 RUN curl -L -o /tmp/mcl.zip "https://github.com/iTXTech/mirai-console-loader/releases/download/v${MCL_VERSION}/mcl-${MCL_VERSION}.zip" \
