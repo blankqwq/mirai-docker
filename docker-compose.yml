@@ -5,23 +5,23 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 172.1.0.1/24
+        - subnet: ${IP_SUBNET}
 
 services:
   mcl:
     build: ./mcl/
     container_name: b_mcl
     ports:
-      - "8082:8082"
+      - "${MCL_PORT}:${MCL_MAPPING_PORT}"
     volumes:
       - ./mcl/config.json:/data/mirai/config.json
       - ./mcl/plugins/:/data/mirai/plugins:rw
       - ./mcl/config/:/data/mirai/config/:rw
       - ./mcl/bots/:/data/mirai/bots/:rw
       - ./mcl/data/:/data/mirai/data/:rw
-      - ./mcl/images/:/data/mirai/images/
+      - ${IMAGE_PATH}:${IMAGE_PATH}
     extra_hosts:
-      - "robot.blankqwq.com:172.1.0.1"
+      - "${ADAPTOR_URL}:${MCL_HOST_IP}"
     networks:
       bnet:
-        ipv4_address: 172.1.0.110
+        ipv4_address: ${MCL_HOST_IP}
