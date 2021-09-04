@@ -1,0 +1,24 @@
+version: '3'
+networks:
+  bnet:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.1.0.1/24
+
+services:
+  mcl:
+    build: ./mcl/
+    container_name: b_mcl
+    ports:
+      - "8082:8082"
+    volumes:
+      - ./mcl/config.json:/data/mirai/config.json
+      - ./mcl/plugins/:/data/mirai/plugins:rw
+      - ./mcl/config/:/data/mirai/config/:rw
+      - ./mcl/bots/:/data/mirai/bots/:rw
+      - ./mcl/data/:/data/mirai/data/:rw
+    networks:
+      bnet:
+        ipv4_address: 172.1.0.110
