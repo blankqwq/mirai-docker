@@ -12,10 +12,8 @@ RUN if [ ${CHANGE_SOURCE} = true ]; then \
     sed -i 's/security-cdn.debian.org/mirrors.tuna.tsinghua.edu.cn/' /etc/apt/sources.list \
 ;fi
 
-RUN apt-get update
-RUN apt-get -y install git unzip
-RUN apt-get install -y libmcrypt-dev libzip-dev zip unzip
-RUN apt-get install -y vim
+RUN apt-get update && \
+    apt-get -y install libmcrypt-dev libzip-dev zip git unzip vim
 
 ARG MCL_VERSION=1.2.2
 RUN curl -L -o /tmp/mcl.zip "https://github.com/iTXTech/mirai-console-loader/releases/download/v${MCL_VERSION}/mcl-${MCL_VERSION}.zip" \
