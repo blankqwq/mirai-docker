@@ -21,7 +21,7 @@ services:
       - ./mcl/data/:/data/mirai/data/:rw
       - ${IMAGE_PATH}:${IMAGE_PATH}
     extra_hosts:
-      - "${ADAPTOR_URL}:${MCL_HOST_IP}"
+      - "${ADAPTOR_URL}:${ADAPTOR_IP}"
     networks:
       bnet:
         ipv4_address: ${MCL_HOST_IP}
