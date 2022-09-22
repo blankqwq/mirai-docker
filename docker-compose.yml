@@ -1,4 +1,5 @@
 version: '3'
+
 networks:
   bnet:
     driver: bridge
@@ -10,18 +11,33 @@ networks:
 services:
   mcl:
     build: ./mcl/
-    container_name: b_mcl
-    ports:
-      - "${MCL_PORT}:${MCL_MAPPING_PORT}"
+    container_name: m_mcl
+    image: blankqwq/mirai-mcl:latest
     volumes:
       - ./mcl/config.json:/data/mirai/config.json
       - ./mcl/plugins/:/data/mirai/plugins:rw
       - ./mcl/config/:/data/mirai/config/:rw
       - ./mcl/bots/:/data/mirai/bots/:rw
       - ./mcl/data/:/data/mirai/data/:rw
-      - ${IMAGE_PATH}:${IMAGE_PATH}
-    extra_hosts:
-      - "${ADAPTOR_URL}:${ADAPTOR_IP}"
+      - ${CODE_DIR_NAME}:/data/www
     networks:
       bnet:
         ipv4_address: ${MCL_HOST_IP}
+  php:
+    build: 
+      context: ./php/
+    container_name: m_php
+    image: blankqwq/mirai-php:latest
+    volumes:
+      - ${CODE_DIR_NAME}/:/data/www:rw
+      - ./php/logs/:/var/logs/:rw
+      - ./php/conf/php.ini:/etc/php.ini:ro
+      - ./php/conf/php-fpm.conf:/etc/php-fpm.conf:ro
+      - ./php/conf/xdebug.ini:/etc/xdebug.ini:rw
+      - ./php/supervisor:/data/supervisor/conf.d/
+      - ./php/nginx:/data/nginx/conf.d/
+    links:
+      - mcl
+    networks:
+      bnet:
+        ipv4_address: ${PHP_FPM_IP}

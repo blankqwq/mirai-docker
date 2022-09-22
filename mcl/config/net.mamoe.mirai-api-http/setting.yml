@@ -5,4 +5,11 @@ enableVerify: true
 verifyKey: INITKEYkritaKC1
 singleMode: false
 cacheSize: 4096
-adapterSettings: {}
+adapterSettings: 
+  webhook:
+      ## 回调(上报)地址
+      destinations: 
+      - 'php:80/qq'
+      ## 额外自定义请求头
+      extraHeaders:
+        A: B

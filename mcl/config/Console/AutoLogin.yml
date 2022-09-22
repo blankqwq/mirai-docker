@@ -12,4 +12,3 @@ accounts:
     configuration: 
       protocol: ANDROID_PHONE
       device: device.json
-

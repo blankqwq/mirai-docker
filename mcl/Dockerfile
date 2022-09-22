@@ -16,11 +16,11 @@ RUN apt-get update && \
     apt-get -y install libmcrypt-dev libzip-dev zip git unzip vim
 
 ARG MCL_VERSION=1.2.2
-RUN curl -L -o /tmp/mcl.zip "https://github.com/iTXTech/mirai-console-loader/releases/download/v${MCL_VERSION}/mcl-${MCL_VERSION}.zip" \
+RUN curl -L -o /tmp/mcl.zip "https://ghproxy.com/https://github.com/iTXTech/mirai-console-loader/releases/download/v${MCL_VERSION}/mcl-${MCL_VERSION}.zip" \
     && unzip /tmp/mcl.zip -d /data/mirai \
     && cd /data/mirai \
     && chmod +x ./mcl \
-    && ./mcl --dry-run
+    && ./mcl -u --dry-run
 
 EXPOSE 8082
 CMD ["./mcl"]
