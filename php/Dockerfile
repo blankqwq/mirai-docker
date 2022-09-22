@@ -27,11 +27,12 @@ RUN npm config set registry https://registry.npm.taobao.org && npm install -g pu
 
 RUN wget https://getcomposer.org/download/2.0.12/composer.phar -O /usr/local/bin/composer && chmod +x /usr/local/bin/composer && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 
-RUN mkdir -p /data/supervisor/tmp /data/supervisor/conf.d /data/supervisor/logs /data/nginx/conf.d /data/nginx/log /data/php-fpm/logs /data/www
+RUN mkdir -p /data/www /var/logs/supervisor/
 
 COPY ./sys/supervisord.conf /etc/supervisor/supervisord.conf
-COPY ./nginx/site.conf /data/nginx/conf.d/site.conf
-COPY ./supervisor/server.conf /data/supervisor/conf.d/server.conf
+COPY ./supervisor/server.ini /data/supervisor/conf.d/server.ini
+COPY ./sys/nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx/site.conf /etc/nginx/vhost/site.conf
 
 VOLUME /data/www
 
@@ -39,4 +40,4 @@ EXPOSE 80
 
 WORKDIR /data/www
 
-ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
+ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]

@@ -34,8 +34,11 @@ services:
       - ./php/conf/php.ini:/etc/php.ini:ro
       - ./php/conf/php-fpm.conf:/etc/php-fpm.conf:ro
       - ./php/conf/xdebug.ini:/etc/xdebug.ini:rw
-      - ./php/supervisor:/data/supervisor/conf.d/
-      - ./php/nginx:/data/nginx/conf.d/
+      - ./php/supervisor/:/etc/supervisord.d/
+      - ./php/nginx/:/data/nginx/vhost/
+      - ./php/sys/nginx.conf:/etc/nginx/nginx.conf
+      - ./php/sys/phpcgi.conf:/etc/nginx/fastcgi.conf
+
     links:
       - mcl
     networks:
