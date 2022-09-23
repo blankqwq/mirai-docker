@@ -20,6 +20,8 @@ services:
       - ./mcl/bots/:/data/mirai/bots/:rw
       - ./mcl/data/:/data/mirai/data/:rw
       - ${CODE_DIR_NAME}:/data/www
+    links:
+      - php
     networks:
       bnet:
         ipv4_address: ${MCL_HOST_IP}
@@ -30,17 +32,15 @@ services:
     image: blankqwq/mirai-php:latest
     volumes:
       - ${CODE_DIR_NAME}/:/data/www:rw
-      - ./php/logs/:/var/logs/:rw
+      - ./php/logs/:/var/logs/
       - ./php/conf/php.ini:/etc/php.ini:ro
       - ./php/conf/php-fpm.conf:/etc/php-fpm.conf:ro
       - ./php/conf/xdebug.ini:/etc/xdebug.ini:rw
       - ./php/supervisor/:/etc/supervisord.d/
-      - ./php/nginx/:/data/nginx/vhost/
+      - ./php/nginx/:/etc/nginx/vhost/
       - ./php/sys/nginx.conf:/etc/nginx/nginx.conf
       - ./php/sys/phpcgi.conf:/etc/nginx/fastcgi.conf
-
-    links:
-      - mcl
+    privileged: true
     networks:
       bnet:
         ipv4_address: ${PHP_FPM_IP}

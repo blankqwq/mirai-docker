@@ -27,7 +27,10 @@ RUN npm config set registry https://registry.npm.taobao.org && npm install -g pu
 
 RUN wget https://getcomposer.org/download/2.0.12/composer.phar -O /usr/local/bin/composer && chmod +x /usr/local/bin/composer && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 
-RUN mkdir -p /data/www /var/logs/supervisor/
+
+RUN mkdir -p /data/www /var/logs/supervisor/ /var/logs/nginx/ /var/logs/php-fpm
+
+RUN chown www:www -R /data/www
 
 COPY ./sys/supervisord.conf /etc/supervisor/supervisord.conf
 COPY ./supervisor/server.ini /data/supervisor/conf.d/server.ini
