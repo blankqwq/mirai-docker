@@ -14,7 +14,7 @@ RUN yum -y update && yum install -y wget vim curl ping net-tools supervisor ngin
 
 RUN yum -y install nc
 
-RUN yum -y install php php-cli php-devel php-pdo php-exif php-imagick php-pgsql php-sqlite3 php-gd php-curl php-memcached php-imap php-mysqlnd php-mysql php-mbstring php-xml php-zip php-bcmath php-soap php-intl php-readline php-pcov php-msgpack php-igbinary php-ldap php-redis php-pear php-dom php-mcrypt php-odbc php-mssql php-mysqli php-pecl-swoole php-pecl-yaf php-pecl-redis php-fpm --enablerepo=remi-php74
+RUN yum -y install php php-cli php-devel php-opcache php-pdo php-exif php-imagick php-pgsql php-sqlite3 php-gd php-curl php-memcached php-imap php-mysqlnd php-mysql php-mbstring php-xml php-zip php-bcmath php-soap php-intl php-readline php-pcov php-msgpack php-igbinary php-ldap php-redis php-pear php-dom php-mcrypt php-odbc php-mssql php-mysqli php-pecl-swoole php-pecl-yaf php-pecl-redis php-fpm --enablerepo=remi-php74
 
 RUN yum install -y atk at-spi2-atk libxkbcommon-x11-devel libXcomposite gtk3
 
