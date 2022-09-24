@@ -28,8 +28,10 @@ services:
   php:
     build: 
       context: ./php/
+      args:
+        - PHP_VERSION=${PHP_VERSION}
     container_name: m_php
-    image: blankqwq/mirai-php:latest
+    image: blankqwq/mirai-php:${PHP_VERSION}
     volumes:
       - ${CODE_DIR_NAME}/:/data/www:rw
       - ./php/logs/:/var/logs/
@@ -40,7 +42,22 @@ services:
       - ./php/nginx/:/etc/nginx/vhost/
       - ./php/sys/nginx.conf:/etc/nginx/nginx.conf
       - ./php/sys/phpcgi.conf:/etc/nginx/fastcgi.conf
-    privileged: true
+    links:
+      - redis
     networks:
       bnet:
         ipv4_address: ${PHP_FPM_IP}
+  redis:
+    build: 
+      context: ./redis/
+      args:
+        - CHANGE_SOURCE=${CHANGE_SOURCE}
+    container_name: m_redis
+    image: blankqwq/blnmp-redis
+    volumes:
+      - ./redis/conf/:/etc/redis/:ro
+      - ./redis/data/:/var/run/redis/:rw
+      - ./redis/logs/:/var/logs/:rw
+    networks:
+      bnet:
+        ipv4_address: ${REDIS_IP}

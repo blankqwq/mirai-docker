@@ -1,15 +1,20 @@
 adapters: 
   - http
-debug: false
+  - webhook
+debug: true
 enableVerify: true
 verifyKey: INITKEYkritaKC1
 singleMode: false
 cacheSize: 4096
 adapterSettings: 
+  http:
+    host: 0.0.0.0
+    port: 8082
+    cors: ["*"]
+    unreadQueueMaxSize: 100
   webhook:
-      ## 回调(上报)地址
-      destinations: 
-      - 'php:80/qq'
-      ## 额外自定义请求头
-      extraHeaders:
-        A: B
+    destinations: 
+      - 'http://php/api/qq'
+    extraHeaders:
+      A: B
+      header2: value2
